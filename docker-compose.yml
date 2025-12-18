@@ -1,0 +1,17 @@
+version: "3.1"
+
+services:
+  web:
+    build: .
+    restart: always
+    container_name: ext_api_birawa
+    ports:
+      - "5050:5050"
+    volumes:
+      - ./storage:/external-api/storage
+    networks:
+      - externalapi_default
+
+networks:
+  externalapi_default:
+    external: true

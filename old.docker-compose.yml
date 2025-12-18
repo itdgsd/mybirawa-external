@@ -1,0 +1,30 @@
+version: "3.1"
+
+services:
+  web:
+    build: .
+    restart: always
+    container_name: ext_api_birawa
+    ports:
+      - "5050:5050"
+    volumes:
+      - .:/external-api
+    extra_hosts:
+      - "db_mysql:192.168.50.9"
+    depends_on:
+      - db
+    links:
+      - "db:database"
+
+  db:
+    image: mariadb:10.4
+    volumes:
+      - ./data:/var/lib/mysql
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=Sigma878
+      - MYSQL_DATABASE=externaldb
+      - MYSQL_USER=sigma_user
+      - MYSQL_PASSWORD=Sigma878
